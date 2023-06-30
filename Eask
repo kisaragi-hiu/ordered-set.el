@@ -9,5 +9,5 @@
 
 (source "gnu")
 
-(depends-on "emacs" "25.1")
+(depends-on "emacs" "26.3")
 (depends-on "seq" "2.23")
