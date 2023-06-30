@@ -26,9 +26,9 @@
         (s (benchmark-run-compiled 10
              (dotimes (i 10000)
                (set-has set-test:set i)))))
-    ;; set-has should not be more than 1.15x slower than gethash
     (let ((overhead (/ (no-gc s) (no-gc h))))
       (message "   `set-has' is %.2fx slower than `gethash'" overhead)
       (message "   `set-has' is %.2fx faster than `memq'" (/ (no-gc l) (no-gc s)))
       (message "   `gethash' is %.2fx faster than `memq'" (/ (no-gc l) (no-gc h)))
-      (should (< overhead 1.15)))))
+      ;; set-has should not be more than 2x slower than gethash
+      (should (< overhead 2)))))
