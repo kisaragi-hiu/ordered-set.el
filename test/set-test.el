@@ -53,14 +53,12 @@
   (should (set-disjoint-p '(a b c) '()))
   (should-not (set-disjoint-p '(a b c) '(b))))
 
-
 (ert-deftest set:seq-concatenate ()
   (should
    (equal
     (seq-into (seq-concatenate 'set "abc" "def" "cgi" '("s" "t" "ralkj"))
               'list)
     '(97 98 100 101 102 99 103 105 "s" "t" "ralkj"))))
-
 (ert-deftest set:seq-reverse ()
   (let ((set (set-new '(1 2 3 4 5 9))))
     ;; Can sort
@@ -69,7 +67,6 @@
     ;; Does not mutate original
     (should (equal (set-to-list set)
                    '(1 2 3 4 5 9)))))
-
 (ert-deftest set:seq-sort ()
   (let ((set (set-new '("a" "b" "c" "e" "d"))))
     ;; Can sort
@@ -78,7 +75,6 @@
     ;; Does not mutate original
     (should (equal (set-to-list set)
                    '("a" "b" "c" "e" "d")))))
-
 (ert-deftest set:seq-uniq ()
   (should (equal
            (seq-uniq (set-new '("a" "a" "b" "c")))
@@ -89,7 +85,6 @@
                        (and (< 0 (elt a 0) 100)
                             (< 0 (elt b 0) 100))))
            '("a"))))
-
 (ert-deftest set:seq-elt ()
   (let ((set (set-new '(1 2 3 4 5))))
     (should (equal 1 (seq-elt set 0)))

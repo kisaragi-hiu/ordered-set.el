@@ -9,7 +9,8 @@ test: clean-elc
 	${MAKE} clean-elc
 
 unit:
-	eask test ert 'test/*'
+	eask test ert 'test/*test.el'
+	eask test ert 'test/*perf.el'
 
 compile:
 	eask compile
