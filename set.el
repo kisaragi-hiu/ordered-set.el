@@ -56,14 +56,6 @@ The order is kept, so (seq-elt SEQ 0) equals
     new))
 
 ;;; Main methods
-(defun set-clear (set)
-  "Remove all elements from SET.
-Return nil."
-  (setf (set--ht set)
-        (make-hash-table :test #'equal))
-  (setf (set--lst set)
-        nil))
-
 (defun set-add (set value)
   "Add VALUE to SET.
 Unlike JavaScript, the first added element comes last in SET."
@@ -91,6 +83,14 @@ Return nil if VALUE wasn't in SET in the first place."
   "Test if VALUE is in SET."
   (set--!! (gethash value (set--ht set))))
 
+(defun set-clear (set)
+  "Remove all elements from SET.
+Return nil."
+  (setf (set--ht set)
+        (make-hash-table :test #'equal))
+  (setf (set--lst set)
+        nil))
+
 ;;; tc39/proposal-set-methods
 
 ;; Some of these are wrappers over seq's functions, the only difference being
@@ -98,34 +98,34 @@ Return nil if VALUE wasn't in SET in the first place."
 
 ;; These functions accept any sequence, but they return sets if applicable.
 
-(defun set-intersection (set1 set2)
-  "Return a new set that is the intersection of SET1 and SET2.
-\(A B ∩ (B C) -> (B)"
-  (set-new (seq-intersection set1 set2)))
-(defun set-union (set1 set2)
-  "Return a new set that is the union of SET1 and SET2.
+(defun set-intersection (seq1 seq2)
+  "Return a new set that is the intersection of SEQ1 and SEQ2.
+\(A B) ∩ (B C) -> (B)"
+  (set-new (seq-intersection seq1 seq2)))
+(defun set-union (seq1 seq2)
+  "Return a new set that is the union of SEQ1 and SEQ2.
 \(A B) ∪ (B C) -> (A B C)"
-  (set-new (seq-union set1 set2)))
-(defun set-difference (set1 set2)
-  "Return a new set that is the difference of SET1 and SET2.
+  (set-new (seq-union seq1 seq2)))
+(defun set-difference (seq1 seq2)
+  "Return a new set that is the \"difference\" of SEQ1 and SEQ2.
 
-This is like taking SET1 then removing each of SET2 from it.
+This is like taking SEQ1 then removing each of SEQ2 from it.
 
 \(A B) ∖ (B C D) -> (A)
 
-Elements that are only in SET2 are not included. For that kind of
+Elements that are only in SEQ2 are not included. For that kind of
 difference, see `set-symmetric-difference'."
-  (set-new (seq-difference set1 set2)))
-(defun set-symmetric-difference (set1 set2)
-  "Return a new set that is the symmetric difference of SET1 and SET2.
+  (set-new (seq-difference seq1 seq2)))
+(defun set-symmetric-difference (seq1 seq2)
+  "Return a new set that is the symmetric difference of SEQ1 and SEQ2.
 
-The new set contains elements that are not shared between SET1 and SET2.
+The new set contains elements that are not shared between SEQ1 and SEQ2.
 
 \(A B) ⊖ (B C D) -> (A C D)
 
 See also `set-difference'."
-  (set-difference (seq-union set1 set2)
-                  (seq-intersection set1 set2)))
+  (set-difference (seq-union seq1 seq2)
+                  (seq-intersection seq1 seq2)))
 (defun set-subset-p (sub super)
   "Return t if SUB is a subset of SUPER.
 This means every element of SUB is present in SUPER."
@@ -136,12 +136,12 @@ This means every element of SUB is present in SUPER."
   "Return t if SUPER is a superset of SUB.
 This means every element of SUB is present in SUPER."
   (set-subset-p sub super))
-(defun set-disjoint-p (set1 set2)
-  "Return t if SET1 is disjoint from SET2.
+(defun set-disjoint-p (seq1 seq2)
+  "Return t if SEQ1 is disjoint from SEQ2.
 This means they do not intersect."
   ;; This promises to return a list, so we can test "is it nil"
   ;; instead of "is its length = 0"
-  (not (seq-intersection set1 set2)))
+  (not (seq-intersection seq1 seq2)))
 
 ;;; Conversion
 
@@ -161,15 +161,13 @@ This means they do not intersect."
 
 ;;; seq.el integration
 (cl-defmethod seqp ((_set set))
-  "Register sets as sequences."
+  "Sets are sequences."
   t)
 
 ;; I don't understand what the point of `seq-into-sequence' is.
 (cl-defmethod seq-into-sequence ((set set))
   "Return SET, thereby treating sets as sequences."
   set)
-
-;;; Methods
 
 (cl-defmethod seq-elt ((set set) n)
   "Return Nth element of SET."
