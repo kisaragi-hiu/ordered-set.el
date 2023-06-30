@@ -11,12 +11,22 @@ In Emacs Lisp:
 
 But sometimes you want a collection that has both constant lookup time and the ability to preserve element order. This library implements that.
 
-## Specifications
+## Installation
+
+## Specification
 
 - Sets are implemented as structs called `set` with two slots: a hash table, and a list.
 - The hash table is used for testing membership. The list is used to preserve order.
 - The hash table and the list are maintained while adding or deleting elements.
 - Membership equality uses `equal`. Allowing the hash table to accept other equality functions might be doable but would open up too much complexity.
+
+## TODO Examples
+
+Do stuff:
+
+``` emacs-lisp
+(do-stuff)
+```
 
 ## Functions
 
@@ -89,16 +99,6 @@ Here are the function signatures:
 - `(seq-contains-p set elt &optional testfn)`: Return non-nil if `set` contains an element equal to `elt`.
 
   This is very fast if `testfn` is nil, as the membership test utilizes the underlying hash table.
-
-## Examples
-
-Do stuff:
-
-``` emacs-lisp
-(do-stuff)
-```
-
-## Installation
 
 ## Changelog
 
