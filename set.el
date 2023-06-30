@@ -4,8 +4,8 @@
 
 ;; Author: Kisaragi Hiu <mail@kisaragi-hiu.com>
 ;; Version: 0.0.1
-;; Keywords: extensions, sequences, collection, set
-;; Package-Requires: ((emacs "26.3") (seq "2.23"))
+;; Keywords: extensions sequences collection set
+;; Package-Requires: ((emacs "25.3") (seq "2.23"))
 ;; URL: https://github.com/kisaragi-hiu/set.el
 
 ;; This program is free software; you can redistribute it and/or modify
