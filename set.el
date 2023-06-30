@@ -29,12 +29,6 @@
 
 (require 'seq)
 
-;; My justification for the weird name is that this discourages others from
-;; using it. I guess.
-(defun set--!! (value)
-  "Cast VALUE to t or nil."
-  (not (not value)))
-
 ;;; Constructor
 
 (cl-defstruct (set (:copier nil)
@@ -80,9 +74,10 @@ Return nil if VALUE wasn't in SET in the first place."
     ;; Return true to indicate removal was successful
     t))
 
-(defun set-has (set value)
+;; Using define-inline made this go from ~1.5x slower than gethash to ~1.1x
+(define-inline set-has (set value)
   "Test if VALUE is in SET."
-  (set--!! (gethash value (set--ht set))))
+  (inline-quote (gethash ,value (set--ht ,set))))
 
 (defun set-clear (set)
   "Remove all elements from SET.
