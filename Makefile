@@ -1,5 +1,4 @@
 EMACS ?= emacs
-CASK ?= cask
 
 all: test
 
@@ -10,10 +9,10 @@ test: clean-elc
 	${MAKE} clean-elc
 
 unit:
-	${CASK} exec ert-runner
+	eask test ert 'test/*'
 
 compile:
-	${CASK} exec ${EMACS} -Q -batch -f batch-byte-compile set.el
+	eask compile
 
 clean-elc:
 	rm -f set.elc

@@ -6,6 +6,7 @@
 ;; Version: 0.0.1
 ;; Keywords: extensions, sequences, collection, set
 ;; Package-Requires: ((emacs "25.1") (seq "2.23"))
+;; URL: https://github.com/kisaragi-hiu/set.el
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
