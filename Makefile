@@ -8,8 +8,8 @@ test: clean-elc
 	${MAKE} clean-elc
 
 unit:
-	cask emacs --batch -L . -L test -l "test/set-test.el" -f ert-run-tests-batch
-	cask emacs --batch -L . -L test -l "test/set-test-perf.el" -f ert-run-tests-batch
+	cask emacs --batch -L . -L test -l "test/set-test.el" -f ert-run-tests-batch-and-exit
+	cask emacs --batch -L . -L test -l "test/set-test-perf.el" -f ert-run-tests-batch-and-exit
 
 compile:
 	cask build
