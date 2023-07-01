@@ -47,21 +47,19 @@ The order is kept, so (seq-elt SEQ 0) equals
   (let ((new (set--new :-ht (make-hash-table :test #'equal)
                        :-lst nil)))
     (when seq
-      (seq-doseq (value (seq-reverse seq))
+      (seq-doseq (value seq)
         (set-add new value)))
     new))
 
 ;;; Main methods
 (defun set-add (set value)
   "Add VALUE to SET.
-Unlike JavaScript, the first added element comes last in SET."
+The first added element comes first."
   ;; Like `-distinct', each Set value is represented as a key.
   (unless (set-has set value)
     (puthash value t (set--ht set))
-    ;; We insert in front because inserting at the back is slow. Unlike JS,
-    ;; Elisp does not have a sequence type that allows inserting from the back
-    ;; quickly.
-    (push value (set--lst set)))
+    (setf (set--lst set)
+          (nconc (set--lst set) (list value))))
   set)
 
 (defun set-delete (set value)
@@ -69,7 +67,7 @@ Unlike JavaScript, the first added element comes last in SET."
 Return nil if VALUE wasn't in SET in the first place."
   (when (set-has set value)
     (remhash value (set--ht set))
-    ;; FIXME: desync possibility when equality function isn't `equal'
+    ;; This assumes the hash table's equality is `equal'.
     (setf (set--lst set)
           (remove value (set--lst set)))
     ;; Return true to indicate removal was successful

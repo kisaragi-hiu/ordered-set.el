@@ -9,7 +9,7 @@
     (set-add set "hello")
     (set-add set "world")
     (should (equal 2 (seq-length set)))
-    (should (equal "world" (seq-elt set 0)))
+    (should (equal "hello" (seq-elt set 0)))
     (should (set-has set "world"))
     (should-not (set-has set 1234))
     (set-delete set "world")
