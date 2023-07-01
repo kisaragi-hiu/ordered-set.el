@@ -144,7 +144,7 @@ This means they do not intersect."
   "Convert SET to a list."
   (set--lst set))
 
-(cl-defmethod seq-into (sequence (_type (eql 'set)))
+(cl-defmethod seq-into (sequence (_type (eql set)))
   "Convert SEQUENCE into a set."
   (set-new sequence))
 
@@ -211,7 +211,7 @@ Returns a new set."
           (nreverse (set--lst new)))
     new))
 
-(cl-defmethod seq-concatenate ((_type (eql 'set))
+(cl-defmethod seq-concatenate ((_type (eql set))
                                &rest sequences)
   "Concatenate SEQUENCES into a single set."
   (seq-into (apply #'seq-concatenate 'list sequences)
