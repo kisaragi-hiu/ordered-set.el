@@ -89,6 +89,6 @@
   (let ((set (set-new '(1 2 3 4 5))))
     (should (equal 1 (seq-elt set 0)))
     (should-error
-     (setf (seq-elt set 0)
-           "a")
+     (progn (setf (seq-elt set 0) "a")
+            set)
      :type 'cl-no-applicable-method)))
