@@ -25,7 +25,8 @@ jobs:
         run: |
           curl -fsSL https://raw.github.com/doublep/eldev/master/webinstall/github-eldev | sh
       - uses: actions/checkout@v3
-      - run: cask install
+      - run: |
+          eldev prepare
       - name: Run tests
         run: |
           emacs --version
