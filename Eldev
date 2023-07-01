@@ -8,15 +8,15 @@
 (setq eldev-project-loading-mode 'packaged)
 
 ;; Why do I have to do this to force updated seq to actually be used?
-(cl-loop for path in (cl-remove-if-not
-                      #'file-directory-p
-                      (directory-files
-                       (expand-file-name
-                        "packages"
-                        (expand-file-name
-                         (substring emacs-version 0 4)
-                         (expand-file-name
-                          ".eldev")))
-                       :full "^[^\\.]"))
-         do (push path load-path))
+(let ((dir (expand-file-name
+            "packages"
+            (expand-file-name
+             (substring emacs-version 0 4)
+             (expand-file-name
+              ".eldev")))))
+  (when (file-directory-p dir)
+    (cl-loop for path in (cl-remove-if-not
+                          #'file-directory-p
+                          (directory-files dir :full "^[^\\.]"))
+             do (push path load-path))))
 (load "seq")
