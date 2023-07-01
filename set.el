@@ -28,6 +28,7 @@
 ;;; Code:
 
 (require 'seq)
+(require 'cl-lib)
 
 ;;; Constructor
 
