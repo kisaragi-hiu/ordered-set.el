@@ -58,7 +58,7 @@
    (equal
     (seq-into (seq-concatenate 'set "abc" "def" "cgi" '("s" "t" "ralkj"))
               'list)
-    '(97 98 100 101 102 99 103 105 "s" "t" "ralkj"))))
+    '(97 98 99 100 101 102 103 105 "s" "t" "ralkj"))))
 (ert-deftest set:seq-reverse ()
   (let ((set (set-new '(1 2 3 4 5 9))))
     ;; Can sort
