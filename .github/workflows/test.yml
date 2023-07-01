@@ -21,9 +21,9 @@ jobs:
       - uses: purcell/setup-emacs@master
         with:
           version: ${{ matrix.emacs_version }}
-      - uses: cask/setup-cask@master
-        with:
-          version: "snapshot"
+      - name: Install eldev
+        run: |
+          curl -fsSL https://raw.github.com/doublep/eldev/master/webinstall/github-eldev | sh
       - uses: actions/checkout@v3
       - run: cask install
       - name: Run tests

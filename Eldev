@@ -1,0 +1,6 @@
+; -*- mode: lisp-interaction; lexical-binding: t -*-
+
+;; Just for editing
+(require 'eldev)
+
+(eldev-use-package-archive 'gnu-elpa)
