@@ -1,5 +1,8 @@
+# Changelog
+
 ## 0.1.0 (unreleased)
 
+- Add `set-push` as an alias of `set-add`.
 - The underlying fields of sets are now not named like they are private.
 - `set-to-list` has been removed in favor of using `set-lst` to access the underlying list direcly.
 - `set-new` has been renamed to `set-create`, similar to `popup-create` and `ht-create`.

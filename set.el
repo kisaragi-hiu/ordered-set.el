@@ -78,6 +78,8 @@ The first added element comes first."
           (nconc (set-lst set) (list value))))
   set)
 
+(defalias 'set-push 'set-add)
+
 (defun set-delete (set value)
   "Remove VALUE from SET such that (set-has SET VALUE) will return nil.
 Return nil if VALUE wasn't in SET in the first place."

@@ -67,6 +67,7 @@ I've chosen to put collections first to be more like seq.el.
 ### Main methods
 
 - `set-add (set value)`: Add `value` to `set`. Return `set`.
+- `set-push (set value)`: an alias of `set-add`.
 - `set-delete (set value)`: Delete `value` from `set`. Return t if `value` was in `set`, nil otherwise.
 - `set-has (set value)`: Return whether `value` is in `set`.
 - `set-clear (set)`: Clear `set` so that it is empty. Implemented for parity with JavaScript's Set only.
