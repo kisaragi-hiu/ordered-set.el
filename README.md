@@ -37,7 +37,7 @@ Once I hit a comfortable level of stability for this library, I'll submit it to 
   (let ((set (set-create)))
     (dolist (it sequence)
       (set-add set it))
-    (set-to-list set)))
+    (set-lst set)))
 ```
 
 ## Functions
@@ -50,7 +50,8 @@ Once I hit a comfortable level of stability for this library, I'll submit it to 
 
 ### Conversion
 
-- `set-to-list (set)`: Convert `set` to a list.
+- `set-lst (set)`: Return the underlying list of `set`. Modifying this list without making a copy will break the `set` object.
+- `set-ht (set)`: Return the underlying hash table of `set`. Modifying the hash table without making a copy will break the `set` object.
 - `(seq-into set type)`: Convert `set` to any other type supported by `seq-into`.
 - `(seq-into sequence 'set)`: Convert any sequence to a set.
 

@@ -41,7 +41,7 @@
 
 (cl-defstruct (set (:copier nil)
                    (:constructor set--new))
-  -ht -lst)
+  ht lst)
 
 (defun set-create (&optional seq)
   "Create and return a new set.
@@ -51,8 +51,8 @@ SEQ, except that duplicate elements won't be included twice.
 
 The order is kept, so (seq-elt SEQ 0) equals
 \(seq-elt (set-create SEQ) 0)."
-  (let ((new (set--new :-ht (make-hash-table :test #'equal)
-                       :-lst nil)))
+  (let ((new (set--new :ht (make-hash-table :test #'equal)
+                       :lst nil)))
     (when seq
       (seq-doseq (value seq)
         (set-add new value)))
@@ -64,33 +64,33 @@ The order is kept, so (seq-elt SEQ 0) equals
 The first added element comes first."
   ;; Like `-distinct', each Set value is represented as a key.
   (unless (set-has set value)
-    (puthash value t (set--ht set))
-    (setf (set--lst set)
-          (nconc (set--lst set) (list value))))
+    (puthash value t (set-ht set))
+    (setf (set-lst set)
+          (nconc (set-lst set) (list value))))
   set)
 
 (defun set-delete (set value)
   "Remove VALUE from SET such that (set-has SET VALUE) will return nil.
 Return nil if VALUE wasn't in SET in the first place."
   (when (set-has set value)
-    (remhash value (set--ht set))
+    (remhash value (set-ht set))
     ;; This assumes the hash table's equality is `equal'.
-    (setf (set--lst set)
-          (remove value (set--lst set)))
+    (setf (set-lst set)
+          (remove value (set-lst set)))
     ;; Return true to indicate removal was successful
     t))
 
 ;; Using define-inline made this go from ~1.5x slower than gethash to ~1.1x
 (define-inline set-has (set value)
   "Test if VALUE is in SET."
-  (inline-quote (gethash ,value (set--ht ,set))))
+  (inline-quote (gethash ,value (set-ht ,set))))
 
 (defun set-clear (set)
   "Remove all elements from SET.
 Return nil."
-  (setf (set--ht set)
+  (setf (set-ht set)
         (make-hash-table :test #'equal))
-  (setf (set--lst set)
+  (setf (set-lst set)
         nil))
 
 ;;; tc39/proposal-set-methods
@@ -147,10 +147,6 @@ This means they do not intersect."
 
 ;;; Conversion
 
-(defun set-to-list (set)
-  "Convert SET to a list."
-  (set--lst set))
-
 (cl-defmethod seq-into (sequence (_type (eql set)))
   "Convert SEQUENCE into a set."
   (set-create sequence))
@@ -174,48 +170,48 @@ This means they do not intersect."
 (cl-defmethod seq-elt ((set set) n)
   "Return Nth element of SET."
   ;; We may have to do some questionable stuff with N, like reversing it.
-  (elt (set--lst set) n))
+  (elt (set-lst set) n))
 
 (cl-defmethod seq-length ((set set))
   "Return length of SET."
-  (hash-table-count (set--ht set)))
+  (hash-table-count (set-ht set)))
 
 (cl-defmethod seq-do (function (set set))
   "Apply FUNCTION to each element of SET, presumably for side effects.
 Return SET."
-  (mapc function (set--lst set)))
+  (mapc function (set-lst set)))
 
 (cl-defmethod seq-copy ((set set))
   "Return a shallow copy of SET."
-  (set--new :-ht (copy-hash-table (set--ht set))
-            :-lst (copy-sequence (set--lst set))))
+  (set--new :ht (copy-hash-table (set-ht set))
+            :lst (copy-sequence (set-lst set))))
 
 (cl-defmethod seq-subseq ((set set) start &optional end)
   "Return a new set containing elements of SET from START to END."
   (set-create
-   (seq-subseq (set--lst set) start end)))
+   (seq-subseq (set-lst set) start end)))
 
 (cl-defmethod seq-map (function (set set))
   "Run FUNCTION on each element of SET and collect them in a list.
 Possibly faster implementation utilizing mapcar."
-  (mapcar function (set--lst set)))
+  (mapcar function (set-lst set)))
 
 (cl-defmethod seq-sort (pred (set set))
   "Sort SET using PRED as the comparison function.
 The original set is not modified.
 Returns a new set."
   (let ((new (seq-copy set)))
-    (setf (set--lst new)
+    (setf (set-lst new)
           ;; Already copied, no need to copy again
-          (sort (set--lst new) pred))
+          (sort (set-lst new) pred))
     new))
 
 (cl-defmethod seq-reverse ((set set))
   "Return a new set which is a reversed version of SET."
   (let ((new (seq-copy set)))
-    (setf (set--lst new)
+    (setf (set-lst new)
           ;; Already copied
-          (nreverse (set--lst new)))
+          (nreverse (set-lst new)))
     new))
 
 (cl-defmethod seq-concatenate ((_type (eql set))
@@ -228,14 +224,14 @@ Returns a new set."
   "Return a list of unique elements in SET, which just means every element.
 That only applies when TESTFN is nil."
   (if testfn
-      (seq-uniq (set--lst set) testfn)
-    (set--lst set)))
+      (seq-uniq (set-lst set) testfn)
+    (set-lst set)))
 
 (cl-defmethod seq-contains-p ((set set) elt &optional testfn)
   "Return non-nil if SET contains an element equal to ELT.
 Equality is defined by TESTFN if non-nil or by SET's equality function if nil."
   (if testfn
-      (seq-contains-p (set--lst set) elt testfn)
+      (seq-contains-p (set-lst set) elt testfn)
     (set-has set elt)))
 
 (provide 'set)

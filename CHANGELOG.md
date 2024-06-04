@@ -1,6 +1,8 @@
 ## 0.1.0 (unreleased)
 
-- The constructor is now `set-create`, similar to `popup-create` and `ht-create`.
+- The underlying fields of sets are now not named like they are private.
+- `set-to-list` has been removed in favor of using `set-lst` to access the underlying list direcly.
+- `set-new` has been renamed to `set-create`, similar to `popup-create` and `ht-create`.
 
 ## 0.0.3
 
