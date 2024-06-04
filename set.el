@@ -43,14 +43,14 @@
                    (:constructor set--new))
   -ht -lst)
 
-(defun set-new (&optional seq)
+(defun set-create (&optional seq)
   "Create and return a new set.
 
 If SEQ is non-nil, create a set that has the same elements as
 SEQ, except that duplicate elements won't be included twice.
 
 The order is kept, so (seq-elt SEQ 0) equals
-\(seq-elt (set-new SEQ) 0)."
+\(seq-elt (set-create SEQ) 0)."
   (let ((new (set--new :-ht (make-hash-table :test #'equal)
                        :-lst nil)))
     (when seq
@@ -103,11 +103,11 @@ Return nil."
 (defun set-intersection (seq1 seq2)
   "Return a new set that is the intersection of SEQ1 and SEQ2.
 \(A B) ∩ (B C) -> (B)"
-  (set-new (seq-intersection seq1 seq2)))
+  (set-create (seq-intersection seq1 seq2)))
 (defun set-union (seq1 seq2)
   "Return a new set that is the union of SEQ1 and SEQ2.
 \(A B) ∪ (B C) -> (A B C)"
-  (set-new (seq-union seq1 seq2)))
+  (set-create (seq-union seq1 seq2)))
 (defun set-difference (seq1 seq2)
   "Return a new set that is the \"difference\" of SEQ1 and SEQ2.
 
@@ -117,7 +117,7 @@ This is like taking SEQ1 then removing each of SEQ2 from it.
 
 Elements that are only in SEQ2 are not included. For that kind of
 difference, see `set-symmetric-difference'."
-  (set-new (seq-difference seq1 seq2)))
+  (set-create (seq-difference seq1 seq2)))
 (defun set-symmetric-difference (seq1 seq2)
   "Return a new set that is the symmetric difference of SEQ1 and SEQ2.
 
@@ -153,7 +153,7 @@ This means they do not intersect."
 
 (cl-defmethod seq-into (sequence (_type (eql set)))
   "Convert SEQUENCE into a set."
-  (set-new sequence))
+  (set-create sequence))
 
 (cl-defmethod seq-into ((set set) type)
   "Convert SET into a sequence of TYPE."
@@ -192,7 +192,7 @@ Return SET."
 
 (cl-defmethod seq-subseq ((set set) start &optional end)
   "Return a new set containing elements of SET from START to END."
-  (set-new
+  (set-create
    (seq-subseq (set--lst set) start end)))
 
 (cl-defmethod seq-map (function (set set))

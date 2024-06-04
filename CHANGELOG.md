@@ -1,3 +1,7 @@
+## 0.1.0 (unreleased)
+
+- The constructor is now `set-create`, similar to `popup-create` and `ht-create`.
+
 ## 0.0.3
 
 - The `seq-concatenate` and `seq-into` implementations actually work on Emacs 25 ~ 27 now.

@@ -4,7 +4,7 @@
 (require 'ert)
 
 (ert-deftest set-clear/add/delete/has/length/elt ()
-  (let ((set (set-new)))
+  (let ((set (set-create)))
     (set-add set "hello")
     (set-add set "hello")
     (set-add set "world")
@@ -21,20 +21,20 @@
 (ert-deftest set-intersection ()
   (should (equal
            (set-to-list (set-intersection
-                         (set-new '(a b))
-                         (set-new '(b c))))
+                         (set-create '(a b))
+                         (set-create '(b c))))
            '(b))))
 (ert-deftest set-union ()
   (should (equal
            (set-to-list (set-union
-                         (set-new '(a b))
-                         (set-new '(b c))))
+                         (set-create '(a b))
+                         (set-create '(b c))))
            '(a b c))))
 (ert-deftest set-difference ()
   (should (equal
            (set-to-list (set-difference
-                         (set-new '(a b))
-                         (set-new '(b c d))))
+                         (set-create '(a b))
+                         (set-create '(b c d))))
            '(a))))
 (ert-deftest set-symmetric-difference ()
   (should (equal
@@ -60,7 +60,7 @@
               'list)
     '(97 98 99 100 101 102 103 105 "s" "t" "ralkj"))))
 (ert-deftest set:seq-reverse ()
-  (let ((set (set-new '(1 2 3 4 5 9))))
+  (let ((set (set-create '(1 2 3 4 5 9))))
     ;; Can sort
     (should (equal (set-to-list (seq-reverse set))
                    '(9 5 4 3 2 1)))
@@ -68,7 +68,7 @@
     (should (equal (set-to-list set)
                    '(1 2 3 4 5 9)))))
 (ert-deftest set:seq-sort ()
-  (let ((set (set-new '("a" "b" "c" "e" "d"))))
+  (let ((set (set-create '("a" "b" "c" "e" "d"))))
     ;; Can sort
     (should (equal (set-to-list (seq-sort #'string< set))
                    '("a" "b" "c" "d" "e")))
@@ -77,16 +77,16 @@
                    '("a" "b" "c" "e" "d")))))
 (ert-deftest set:seq-uniq ()
   (should (equal
-           (seq-uniq (set-new '("a" "a" "b" "c")))
+           (seq-uniq (set-create '("a" "a" "b" "c")))
            '("a" "b" "c")))
   (should (equal
-           (seq-uniq (set-new '("a" "a" "b" "c"))
+           (seq-uniq (set-create '("a" "a" "b" "c"))
                      (lambda (a b)
                        (and (< 0 (elt a 0) 100)
                             (< 0 (elt b 0) 100))))
            '("a"))))
 (ert-deftest set:seq-elt ()
-  (let ((set (set-new '(1 2 3 4 5))))
+  (let ((set (set-create '(1 2 3 4 5))))
     (should (equal 1 (seq-elt set 0)))
     (should-error
      (progn (setf (seq-elt set 0) "a")

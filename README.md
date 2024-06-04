@@ -34,7 +34,7 @@ Once I hit a comfortable level of stability for this library, I'll submit it to 
 ```elisp
 (defun my-own-uniq (sequence)
   "Return a list of elements of SEQUENCE without duplicates."
-  (let ((set (set-new)))
+  (let ((set (set-create)))
     (dolist (it sequence)
       (set-add set it))
     (set-to-list set)))
@@ -44,7 +44,7 @@ Once I hit a comfortable level of stability for this library, I'll submit it to 
 
 ### Constructor
 
-- `set-new (&optional seq)`
+- `set-create (&optional seq)`
 
   Create a new set. If `seq` is provided, create one with the elements of `seq`.
 

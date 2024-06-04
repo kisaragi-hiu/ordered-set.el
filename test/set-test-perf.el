@@ -13,7 +13,7 @@
   (setq warning-minimum-log-level :emergency))
 
 (defvar set-test:lst (seq-uniq (cl-loop repeat 10000 collect (random 10000))))
-(defvar set-test:set (set-new set-test:lst))
+(defvar set-test:set (set-create set-test:lst))
 (defvar set-test:hash (set--ht set-test:set))
 
 (ert-deftest set:set-has:overhead ()
