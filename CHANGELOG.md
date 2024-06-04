@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0 (unreleased)
+## 0.1.0
 
 - Setting elements with an index via eg. `(setf (seq-elt set 0) "a")` now signals an error of type `set-invalid-operation`. Previously it signaled `cl-no-applicable-method` on Emacs 26+, and ended up actually breaking the struct in Emacs 25 (because Emacs 25 structs are vectors).
 - Add `set-push` as an alias of `set-add`.
