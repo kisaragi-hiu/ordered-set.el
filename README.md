@@ -29,6 +29,15 @@ Once I hit a comfortable level of stability for this library, I'll submit it to 
 - The hash table and the list are maintained while adding or deleting elements.
 - Membership equality uses `equal`. Allowing the hash table to accept other equality functions might be doable but would open up too much complexity.
 
+### A note on argument order
+
+For functions dealing with collection, there is a choice between if values or the collection should come first in arguments.
+
+- Values first: `(member ELT LIST)`, `(puthash KEY VALUE TABLE)`, `(push NEWELT PLACE)`
+- Collection first: `(ht-remove TABLE KEY)`, `(seq-contains-p SEQUENCE ELT)`
+
+I've chosen to put collections first to be more like seq.el.
+
 ## Examples
 
 ```elisp

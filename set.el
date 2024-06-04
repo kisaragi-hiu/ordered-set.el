@@ -41,7 +41,16 @@
 
 (cl-defstruct (set (:copier nil)
                    (:constructor set--new))
-  ht lst)
+  "A once-only collection type that preserves insertion order."
+  (ht nil :documentation
+      "The underlying hash table of the set.
+
+Mutating the hash table without making a copy will break the
+set object.")
+  (lst nil :documentation "The underlying list of the set.
+
+Mutating the list without making a copy will break the
+set object."))
 
 (defun set-create (&optional seq)
   "Create and return a new set.
