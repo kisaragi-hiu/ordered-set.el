@@ -245,5 +245,14 @@ Equality is defined by TESTFN if non-nil or by SET's equality function if nil."
       (seq-contains-p (set-lst set) elt testfn)
     (set-has set elt)))
 
+;; We need to catch this case and raise an error ourselves so that it is still
+;; an error in Emacs 25.
+;; Emacs 25 structs are vectors, without this (setf (seq-elt set ...) ...) would
+;; set the indexed elements in the vector.
+(define-error 'set-invalid-operation "Invalid operation")
+(cl-defmethod (setf seq-elt) (_store (_sequence set) _n)
+  (signal 'set-invalid-operation
+          (list (format-message "Cannot set indexed members of a set"))))
+
 (provide 'set)
 ;;; set.el ends here
