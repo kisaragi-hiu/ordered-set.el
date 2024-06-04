@@ -20,25 +20,25 @@
 
 (ert-deftest set-intersection ()
   (should (equal
-           (set-to-list (set-intersection
-                         (set-create '(a b))
-                         (set-create '(b c))))
+           (set-lst (set-intersection
+                     (set-create '(a b))
+                     (set-create '(b c))))
            '(b))))
 (ert-deftest set-union ()
   (should (equal
-           (set-to-list (set-union
-                         (set-create '(a b))
-                         (set-create '(b c))))
+           (set-lst (set-union
+                     (set-create '(a b))
+                     (set-create '(b c))))
            '(a b c))))
 (ert-deftest set-difference ()
   (should (equal
-           (set-to-list (set-difference
-                         (set-create '(a b))
-                         (set-create '(b c d))))
+           (set-lst (set-difference
+                     (set-create '(a b))
+                     (set-create '(b c d))))
            '(a))))
 (ert-deftest set-symmetric-difference ()
   (should (equal
-           (set-to-list (set-symmetric-difference '(a b) '(b c d)))
+           (set-lst (set-symmetric-difference '(a b) '(b c d)))
            '(a c d))))
 (ert-deftest set-subset-p ()
   (should (set-subset-p '() '(a b c)))
@@ -62,18 +62,18 @@
 (ert-deftest set:seq-reverse ()
   (let ((set (set-create '(1 2 3 4 5 9))))
     ;; Can sort
-    (should (equal (set-to-list (seq-reverse set))
+    (should (equal (set-lst (seq-reverse set))
                    '(9 5 4 3 2 1)))
     ;; Does not mutate original
-    (should (equal (set-to-list set)
+    (should (equal (set-lst set)
                    '(1 2 3 4 5 9)))))
 (ert-deftest set:seq-sort ()
   (let ((set (set-create '("a" "b" "c" "e" "d"))))
     ;; Can sort
-    (should (equal (set-to-list (seq-sort #'string< set))
+    (should (equal (set-lst (seq-sort #'string< set))
                    '("a" "b" "c" "d" "e")))
     ;; Does not mutate original
-    (should (equal (set-to-list set)
+    (should (equal (set-lst set)
                    '("a" "b" "c" "e" "d")))))
 (ert-deftest set:seq-uniq ()
   (should (equal

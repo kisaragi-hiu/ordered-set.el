@@ -165,8 +165,8 @@ This means they do not intersect."
 (cl-defmethod seq-into ((set set) type)
   "Convert SET into a sequence of TYPE."
   (pcase type
-    (`list (set-to-list set))
-    (_ (seq-into (set-to-list set) type))))
+    (`list (set-lst set))
+    (_ (seq-into (set-lst set) type))))
 
 ;;; seq.el integration
 (cl-defmethod seqp ((_set set))
