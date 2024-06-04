@@ -1,4 +1,4 @@
-;;; set.el --- Insertion-order once-only collections  -*- lexical-binding: t; -*-
+;;; set.el --- Insertion-order sets  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2023 Kisaragi Hiu
 
@@ -23,7 +23,14 @@
 
 ;;; Commentary:
 
-;; Insertion-order once-only collections.
+;; Sets are collection that does not permit duplicate objects, subject to some
+;; possibly arbitrary definition of "duplicate".
+;;
+;; Using lists as sets has performance issues, as list lookup is O(n). Hash
+;; tables provide O(1) lookup, but they don't preserve insertion order.
+;;
+;; This library attempts to provide the best of both worlds, at the cost of
+;; memory, by storing both a hash table and a list.
 
 ;;; Code:
 

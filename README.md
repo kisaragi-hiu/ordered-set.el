@@ -1,6 +1,6 @@
 # set.el
 
-Insertion-order once-only collections.
+Insertion-order sets.
 
 ## Why?
 
@@ -13,6 +13,15 @@ But sometimes you want a collection that has both constant lookup time and the a
 
 ## Installation
 
+For now:
+
+```elisp
+(straight-use-package
+  '(set :host github :repo "kisaragi-hiu/set.el"))
+```
+
+Once I hit a comfortable level of stability for this library, I'll submit it to MELPA.
+
 ## Specification
 
 - Sets are implemented as structs called `set` with two slots: a hash table, and a list.
@@ -20,12 +29,15 @@ But sometimes you want a collection that has both constant lookup time and the a
 - The hash table and the list are maintained while adding or deleting elements.
 - Membership equality uses `equal`. Allowing the hash table to accept other equality functions might be doable but would open up too much complexity.
 
-## TODO Examples
+## Examples
 
-Do stuff:
-
-``` emacs-lisp
-(do-stuff)
+```elisp
+(defun my-own-uniq (sequence)
+  "Return a list of elements of SEQUENCE without duplicates."
+  (let ((set (set-new)))
+    (dolist (it sequence)
+      (set-add set it))
+    (set-to-list set)))
 ```
 
 ## Functions
