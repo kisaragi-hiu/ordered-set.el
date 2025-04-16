@@ -23,8 +23,9 @@
 
 ;;; Commentary:
 
-;; Sets are collection that does not permit duplicate objects, subject to some
-;; possibly arbitrary definition of "duplicate".
+;; Sets are collections that does not permit duplicate objects, subject to some
+;; possibly arbitrary definition of "duplicate". This library currently always
+;; uses `equal'.
 ;;
 ;; Using lists as sets has performance issues, as list lookup is O(n). Hash
 ;; tables provide O(1) lookup, but they don't preserve insertion order.

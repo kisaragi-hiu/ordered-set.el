@@ -83,9 +83,9 @@ These functions accept any sequence, like `seq` functions. The difference betwee
   Elements that are only in `seq2` are not included. That sort of “difference” is provided by `set-symmetric-difference`.
 
 - `set-symmetric-difference (seq1 seq2)`: (A B) ⊖ (B C D) → (A C D)
-- `set-subset-p (sub super)`: every element of `sub` is in `super`
-- `set-superset-p (super sub)`: every element of `sub` is in `super`
-- `set-disjoint-p (set1 set2)`: `seq1` and `seq2` do not intersect
+- `set-subset-p (sub super)`: whether every element of `sub` is in `super`
+- `set-superset-p (super sub)`: whether every element of `sub` is in `super`
+- `set-disjoint-p (set1 set2)`: whether `seq1` and `seq2` do not intersect
 
 ### Implementation of the seq.el interface
 
