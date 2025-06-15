@@ -56,7 +56,7 @@
 (ert-deftest ordered-set:seq-concatenate ()
   (should
    (equal
-    (seq-into (seq-concatenate 'set "abc" "def" "cgi" '("s" "t" "ralkj"))
+    (seq-into (seq-concatenate 'ordered-set "abc" "def" "cgi" '("s" "t" "ralkj"))
               'list)
     '(97 98 99 100 101 102 103 105 "s" "t" "ralkj"))))
 (ert-deftest ordered-set:seq-reverse ()
