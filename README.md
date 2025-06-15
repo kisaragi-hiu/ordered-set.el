@@ -71,7 +71,7 @@ I've chosen to put collections first to be more like seq.el.
 ### Main methods
 
 - `ordered-set-add (set value)`: Add `value` to `set`. Return `set`.
-- `ordered-set-push (set value)`: an alias of `set-add`.
+- `ordered-set-push (set value)`: an alias of `ordered-set-add`.
 - `ordered-set-delete (set value)`: Delete `value` from `set`. Return t if `value` was in `set`, nil otherwise.
 - `ordered-set-has (set value)`: Return whether `value` is in `set`.
 - `ordered-set-clear (set)`: Clear `set` so that it is empty. Implemented for parity with JavaScript's Set only.
