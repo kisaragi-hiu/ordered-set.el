@@ -1,6 +1,6 @@
 ;; -*- mode: lisp-interaction; lexical-binding: t; -*-
 
-(require 'set)
+(require 'ordered-set)
 (require 'ert)
 
 (defun no-gc (result)
@@ -12,23 +12,23 @@
 (when noninteractive
   (setq warning-minimum-log-level :emergency))
 
-(defvar set-test:lst (seq-uniq (cl-loop repeat 10000 collect (random 10000))))
-(defvar set-test:set (set-create set-test:lst))
-(defvar set-test:hash (set-ht set-test:set))
+(defvar ordered-set-test:lst (seq-uniq (cl-loop repeat 10000 collect (random 10000))))
+(defvar ordered-set-test:set (ordered-set-create ordered-set-test:lst))
+(defvar ordered-set-test:hash (ordered-set-ht ordered-set-test:set))
 
-(ert-deftest set:set-has:overhead ()
+(ert-deftest ordered-set:set-has:overhead ()
   (let ((l (benchmark-run-compiled 10
              (dotimes (i 10000)
-               (memq i set-test:lst))))
+               (memq i ordered-set-test:lst))))
         (h (benchmark-run-compiled 10
              (dotimes (i 10000)
-               (gethash i set-test:hash))))
+               (gethash i ordered-set-test:hash))))
         (s (benchmark-run-compiled 10
              (dotimes (i 10000)
-               (set-has set-test:set i)))))
+               (ordered-set-has ordered-set-test:set i)))))
     (let ((overhead (/ (no-gc s) (no-gc h))))
-      (message "   `set-has' is %.2fx slower than `gethash'" overhead)
-      (message "   `set-has' is %.2fx faster than `memq'" (/ (no-gc l) (no-gc s)))
+      (message "   `ordered-set-has' is %.2fx slower than `gethash'" overhead)
+      (message "   `ordered-set-has' is %.2fx faster than `memq'" (/ (no-gc l) (no-gc s)))
       (message "   `gethash' is %.2fx faster than `memq'" (/ (no-gc l) (no-gc h)))
-      ;; set-has should not be more than 2x slower than gethash
+      ;; ordered-set-has should not be more than 2x slower than gethash
       (should (< overhead 2)))))
