@@ -11,10 +11,6 @@ In Emacs Lisp:
 
 But sometimes you want a collection that has both constant lookup time and the ability to preserve element order. This library implements that.
 
-## About naming
-
-Surprisingly there is no library called `set.el`, but to leave some space for Emacs to gain a builtin set library in the future I've now avoided using that name.
-
 ## Installation
 
 For now:
