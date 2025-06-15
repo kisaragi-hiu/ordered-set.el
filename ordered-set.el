@@ -79,7 +79,7 @@ The first added element comes first."
           (nconc (ordered-set-lst set) (list value))))
   set)
 
-(defalias 'ordered-set-push 'ordered-set-add)
+(defalias 'ordered-set-push #'ordered-set-add)
 
 (defun ordered-set-delete (set value)
   "Remove VALUE from SET such that (set-has SET VALUE) will return nil.
