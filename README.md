@@ -1,4 +1,4 @@
-# set.el
+# ordered-set.el
 
 Insertion-order sets.
 
