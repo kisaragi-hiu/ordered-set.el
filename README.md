@@ -107,8 +107,8 @@ Of particular note:
 Here are the function signatures:
 
 - `(seq-into set type)`: Convert `set` to any other type supported by `seq-into`.
-- `(seq-into sequence 'set)`: Convert any sequence to a set.
-- `(seqp set)`: Return t for sets.
+- `(seq-into sequence 'ordered-set)`: Convert any sequence to a set.
+- `(seqp my-set)`: Return t for sets.
 - `(seq-into-sequence set)`: do nothing and return `set` like the generic implementation.
 - `(seq-elt set n)`: Return `n`th element of `set`. Last added elements come first.
 - `(seq-length set)`: Return the number of elements in `set`.
