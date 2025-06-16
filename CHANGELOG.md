@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+- Sharp-quote the aliased reference to a function
+
 ## 0.2.0
 
 - Rename to ordered-set.el because set.el is a bit too ambitious, even though it surprisingly isn't taken.

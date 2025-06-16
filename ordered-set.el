@@ -3,7 +3,7 @@
 ;; Copyright (C) 2024 Kisaragi Hiu
 
 ;; Author: Kisaragi Hiu <mail@kisaragi-hiu.com>
-;; Version: 0.2.0
+;; Version: 0.2.1
 ;; Keywords: extensions sequences collection set
 ;; Package-Requires: ((emacs "25.3") (seq "2.23"))
 ;; URL: https://github.com/kisaragi-hiu/ordered-set.el
