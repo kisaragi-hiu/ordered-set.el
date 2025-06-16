@@ -13,14 +13,18 @@ But sometimes you want a collection that has both constant lookup time and the a
 
 ## Installation
 
-For now:
+Now on MELPA!
+
+```elisp
+(straight-use-package 'ordered-set)
+```
+
+Or without MELPA:
 
 ```elisp
 (straight-use-package
   '(ordered-set :host github :repo "kisaragi-hiu/ordered-set.el"))
 ```
-
-Once I hit a comfortable level of stability for this library, I'll submit it to MELPA.
 
 ## Specification
 
